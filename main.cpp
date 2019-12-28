@@ -25,8 +25,10 @@ void handle(std::vector<std::unique_ptr<figure>>& figures, int buffer_size, std:
 	while (!(stop_thrd)) {
 		cv_mtx1.wait(lock);
 		//std::cout << figures.size() << std::endl;
-		for (int i = 0; i < handlers.size(); ++i) {
-			handlers[i]->exec(figures);
+		if (figures.size() != 0) {
+			for (int i = 0; i < handlers.size(); ++i) {
+				handlers[i]->exec(figures);
+			}
 		}
 		figures.clear();
 		cv_mtx2.notify_all();
